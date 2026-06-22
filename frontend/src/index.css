@@ -6,32 +6,32 @@
    ========================= */
 @theme {
   /* ── Core Palette ── */
-  --color-background:   #060C17;
-  --color-surface:      #0D1525;
-  --color-surface-2:    #111B2E;
+  --color-background:   #000000;
+  --color-surface:      #0a0a0a;
+  --color-surface-2:    #121212;
 
-  --color-foreground:   #F1F5F9;
-  --color-muted:        #0D1525;
-  --color-muted-foreground: #7E90AA;
+  --color-foreground:   #ffffff;
+  --color-muted:        #121212;
+  --color-muted-foreground: #a1a1aa;
 
-  --color-card:         #0D1525;
-  --color-card-foreground: #F1F5F9;
+  --color-card:         #0a0a0a;
+  --color-card-foreground: #ffffff;
 
-  --color-border:       #1C2B42;
-  --color-border-subtle: #132036;
+  --color-border:       #27272a;
+  --color-border-subtle: #18181b;
 
   /* ── Brand ── */
-  --color-primary:      #7C3AED;
-  --color-primary-light: #9D6BF5;
+  --color-primary:      #0185B1;
+  --color-primary-light: #28a9d1;
   --color-primary-foreground: #ffffff;
 
-  --color-accent:       #06B6D4;
-  --color-accent-light: #22D3EE;
+  --color-accent:       #0185B1;
+  --color-accent-light: #28a9d1;
 
-  --color-destructive:  #EF4444;
+  --color-destructive:  #ef4444;
 
   /* ── Radius ── */
-  --radius: 0.875rem;
+  --radius: 0.5rem;
 
   /* ── Fonts ── */
   --font-display: 'Sora', system-ui, sans-serif;
@@ -57,7 +57,7 @@
   }
 
   ::selection {
-    background: rgba(124, 58, 237, 0.3);
+    background: rgba(1, 133, 177, 0.3);
     color: #fff;
   }
 
@@ -90,7 +90,7 @@
 
   /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, #7C3AED 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #0185B1 0%, #0185B1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -99,7 +99,7 @@
   /* Primary button */
   .btn-primary {
     @apply bg-primary text-primary-foreground font-semibold px-7 py-3 rounded-full hover:opacity-90 active:scale-[0.98] transition-all duration-200;
-    box-shadow: 0 0 24px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 0 24px rgba(1, 133, 177, 0.3);
   }
 
   /* Ghost button */
@@ -115,7 +115,7 @@
   /* Gradient card border accent */
   .card-accent-bar {
     @apply absolute left-0 top-0 w-[2px] h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300;
-    background: linear-gradient(180deg, #7C3AED 0%, #06B6D4 100%);
+    background: linear-gradient(180deg, #0185B1 0%, #0185B1 100%);
   }
 }
 
@@ -130,11 +130,11 @@
 }
 
 .glow-violet {
-  background: rgba(124, 58, 237, 0.12);
+  background: rgba(1, 133, 177, 0.12);
 }
 
 .glow-cyan {
-  background: rgba(6, 182, 212, 0.08);
+  background: rgba(1, 133, 177, 0.08);
 }
 
 /* Subtle grid bg */
@@ -144,3 +144,20 @@
     linear-gradient(90deg, rgba(28, 43, 66, 0.5) 1px, transparent 1px);
   background-size: 48px 48px;
 }
+
+/* =========================
+   MARQUEE ANIMATION
+   ========================= */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MailIcon, GlobeIcon, ZapIcon, CheckIcon } from "../../../components/ui/Icon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,9 +22,9 @@ const inputClass =
   "w-full px-4 py-3 rounded-xl border border-border bg-surface text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-primary/50 transition-all duration-200";
 
 const infoItems = [
-  { icon: "📧", text: "contact@buggcy.com" },
-  { icon: "🌍", text: "Global clients · Based in Pakistan" },
-  { icon: "⚡", text: "React · Node · Cloud · Mobile" },
+  { icon: <MailIcon size={20} />, text: "contact@buggcy.com" },
+  { icon: <GlobeIcon size={20} />, text: "Global clients · Based in Pakistan" },
+  { icon: <ZapIcon size={20} />, text: "React · Node · Cloud · Mobile" },
 ];
 
 export default function Contact() {
@@ -42,7 +43,7 @@ export default function Contact() {
   return (
     <section id="contact" className="bg-surface section-pad relative overflow-hidden">
       {/* Ambient */}
-      <div className="hero-glow glow-violet w-[500px] h-[500px] bottom-0 right-0 opacity-30" />
+      <div className="hero-glow glow-cyan w-[500px] h-[500px] bottom-0 right-0 opacity-30" />
 
       <div className="section-container relative z-10 space-y-16">
 
@@ -89,10 +90,14 @@ export default function Contact() {
           {/* Form */}
           <div>
             {sent ? (
-              <div className="p-8 rounded-2xl text-center space-y-2 border"
-                style={{ background: "rgba(124,58,237,0.05)", borderColor: "rgba(124,58,237,0.2)" }}>
-                <p className="text-xl font-semibold" style={{ fontFamily: "var(--font-display)" }}>Message sent 🎉</p>
-                <p className="text-sm text-muted-foreground">We'll respond within 24 hours.</p>
+              <div className="p-8 rounded-[2rem] text-center space-y-4 border bg-surface/50 border-primary/20 backdrop-blur-md">
+                <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                  <CheckIcon size={32} className="text-primary" />
+                </div>
+                <p className="text-2xl font-bold flex items-center justify-center gap-2" style={{ fontFamily: "var(--font-display)" }}>
+                  Message sent
+                </p>
+                <p className="text-muted-foreground">We'll respond within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
@@ -130,8 +135,7 @@ export default function Contact() {
                 </div>
 
                 <button type="submit" disabled={isSubmitting}
-                  className="w-full text-white font-semibold py-3 rounded-xl transition-all duration-200 disabled:opacity-60 active:scale-[0.99]"
-                  style={{ background: "linear-gradient(135deg, #7C3AED 0%, #7C3AED 100%)", boxShadow: "0 0 20px rgba(124,58,237,0.3)" }}>
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 rounded-xl transition-all duration-300 disabled:opacity-60 active:scale-[0.98] shadow-[0_0_20px_var(--color-primary)]">
                   {isSubmitting ? "Sending..." : "Send Message →"}
                 </button>
               </form>

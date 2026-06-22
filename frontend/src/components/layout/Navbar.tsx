@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "About Us", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Careers", href: "#" },
-  { label: "Contact Us", href: "#" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact Us", href: "/contact" },
 ];
+
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -21,41 +23,40 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-[0_1px_20px_rgba(0,0,0,0.4)]"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "bg-background/90 backdrop-blur-md border-b border-border shadow-[0_1px_20px_rgba(0,0,0,0.4)]"
+        : "bg-transparent"
+        }`}
     >
       <div className="section-container h-16 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          to="/"
           className="font-display font-bold text-xl text-foreground tracking-tight flex items-center gap-2"
         >
           <img className="w-full h-8" src={logo} />
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
-              href={link.href}
+              to={link.href}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* CTA */}
-        <a
-          href="#contact"
+        <Link
+          to="/contact"
           className="hidden md:inline-flex btn-primary text-sm px-5 py-2"
         >
           Let's Talk
-        </a>
+        </Link>
 
         {/* Mobile button */}
         <button
@@ -93,22 +94,22 @@ export default function Navbar() {
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
           <div className="section-container py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className="text-sm text-muted-foreground hover:text-foreground py-1"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="btn-primary text-sm text-center mt-2"
               onClick={() => setOpen(false)}
             >
               Let's Talk
-            </a>
+            </Link>
           </div>
         </div>
       )}

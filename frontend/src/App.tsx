@@ -1,23 +1,26 @@
-import About from "./components/home/About";
-import Contact from "./components/home/Contact";
-import Footer from "./components/home/Footer";
-import Hero from "./components/home/Hero";
-import Industries from "./components/home/Industries";
-import Navbar from "./components/home/Navbar";
-import Services from "./components/home/Services";
-import TechStack from "./components/home/TechStack";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/home/HomePage";
+import AboutUsPage from "./pages/aboutus/AboutUsPage";
+import ServicesPage from "./pages/ServicesPage";
+import ContactPage from "./pages/contact/ContactPage";
+import BlogPage from "./pages/blog/BlogPage";
+import CareersPage from "./pages/CareersPage";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 
 export default function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main>
-        <Hero />
-        <Services />
-        <Industries />
-        <About />
-        <TechStack />
-        <Contact />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+        </Routes>
       </main>
       <Footer />
     </div>
