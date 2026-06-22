@@ -1,20 +1,25 @@
-import Navbar from "./components/Navbar"
-import Hero from "./components/Hero"
-import StatsBar from "./components/StatsBar"
+import About from "./components/home/About";
+import Contact from "./components/home/Contact";
+import Footer from "./components/home/Footer";
+import Hero from "./components/home/Hero";
+import Industries from "./components/home/Industries";
+import Navbar from "./components/home/Navbar";
+import Services from "./components/home/Services";
+import TechStack from "./components/home/TechStack";
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen flex flex-col selection:bg-primary/30 selection:text-primary">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      
-      <main className="flex-grow">
+      <main>
         <Hero />
-        <StatsBar />
+        <Services />
+        <Industries />
+        <About />
+        <TechStack />
+        <Contact />
       </main>
-      
-      {/* Footer / Other sections would go here */}
+      <Footer />
     </div>
-  )
+  );
 }
-
-export default App

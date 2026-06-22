@@ -1,33 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
+/* =========================
+   DESIGN TOKENS
+   ========================= */
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --font-display: "Syne", sans-serif;
-  --font-mono: "Space Mono", monospace;
+  /* ── Core Palette ── */
+  --color-background:   #060C17;
+  --color-surface:      #0D1525;
+  --color-surface-2:    #111B2E;
 
-  --color-background: #0C0C0E;
-  --color-surface: #141416;
-  --color-primary: #5B52E8;
-  --color-emerald: #00B389;
-  --color-foreground: #F0F0F0;
-  
-  --color-border: rgba(255, 255, 255, 0.1);
+  --color-foreground:   #F1F5F9;
+  --color-muted:        #0D1525;
+  --color-muted-foreground: #7E90AA;
+
+  --color-card:         #0D1525;
+  --color-card-foreground: #F1F5F9;
+
+  --color-border:       #1C2B42;
+  --color-border-subtle: #132036;
+
+  /* ── Brand ── */
+  --color-primary:      #7C3AED;
+  --color-primary-light: #9D6BF5;
+  --color-primary-foreground: #ffffff;
+
+  --color-accent:       #06B6D4;
+  --color-accent-light: #22D3EE;
+
+  --color-destructive:  #EF4444;
+
+  /* ── Radius ── */
+  --radius: 0.875rem;
+
+  /* ── Fonts ── */
+  --font-display: 'Sora', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
 }
 
+/* =========================
+   BASE STYLES
+   ========================= */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+  }
+
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  ::selection {
+    background: rgba(124, 58, 237, 0.3);
+    color: #fff;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
   }
 }
 
-/* Utilities for gradient text */
-@utility text-gradient {
-  background: linear-gradient(to right, #F0F0F0, #888888);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* =========================
+   GLOBAL CONTAINER — every section uses this
+   ========================= */
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-6;
+  }
+
+  .section-pad {
+    @apply py-24 md:py-28;
+  }
+
+  /* Section label pill */
+  .label-pill {
+    @apply inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full border border-border bg-surface text-muted-foreground tracking-wide uppercase;
+  }
+
+  /* Card base */
+  .card-base {
+    @apply bg-card border border-border rounded-2xl transition-all duration-300;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #7C3AED 0%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground font-semibold px-7 py-3 rounded-full hover:opacity-90 active:scale-[0.98] transition-all duration-200;
+    box-shadow: 0 0 24px rgba(124, 58, 237, 0.3);
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply border border-border bg-transparent text-foreground font-semibold px-7 py-3 rounded-full hover:bg-surface transition-all duration-200;
+  }
+
+  /* Card hover glow */
+  .card-hover {
+    @apply hover:border-primary/40 hover:shadow-lg;
+  }
+
+  /* Gradient card border accent */
+  .card-accent-bar {
+    @apply absolute left-0 top-0 w-[2px] h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+    background: linear-gradient(180deg, #7C3AED 0%, #06B6D4 100%);
+  }
+}
+
+/* =========================
+   AMBIENT GLOW BACKGROUNDS
+   ========================= */
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.glow-violet {
+  background: rgba(124, 58, 237, 0.12);
+}
+
+.glow-cyan {
+  background: rgba(6, 182, 212, 0.08);
+}
+
+/* Subtle grid bg */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(28, 43, 66, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 43, 66, 0.5) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
