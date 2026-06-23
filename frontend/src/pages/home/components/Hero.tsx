@@ -6,7 +6,7 @@ import {
   Smartphone,
   Database,
   Globe,
-  Cloud
+  Cloud,
 } from "lucide-react";
 
 /* ---------------- DATA ---------------- */
@@ -17,8 +17,18 @@ const stats = [
 ];
 
 const orbitItems = [
-  { icon: Code2, title: "Development", desc: "Building scalable apps", delay: 0.1 },
-  { icon: Smartphone, title: "Mobile", desc: "Native iOS & Android", delay: 0.2 },
+  {
+    icon: Code2,
+    title: "Development",
+    desc: "Building scalable apps",
+    delay: 0.1,
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile",
+    desc: "Native iOS & Android",
+    delay: 0.2,
+  },
   { icon: Globe, title: "Web", desc: "High-performance web", delay: 0.3 },
   { icon: Database, title: "Data", desc: "Secure architecture", delay: 0.4 },
   { icon: Cloud, title: "Cloud", desc: "AWS & DevOps", delay: 0.5 },
@@ -76,7 +86,13 @@ export default function Hero() {
               className="text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight"
             >
               From ideas to scalable {""}
-              <span className="text-primary" style={{ fontFamily: "var(--font-display)" }}>digital</span> experiences
+              <span
+                className="text-primary"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                digital
+              </span>{" "}
+              experiences
             </motion.h1>
 
             <motion.p
@@ -98,11 +114,21 @@ export default function Hero() {
             </motion.div>
 
             {/* Quick Stats */}
-            <motion.div variants={fadeUp} className="grid grid-cols-3 gap-6 pt-10 border-t border-border mt-10">
+            <motion.div
+              variants={fadeUp}
+              className="grid grid-cols-3 gap-6 pt-10 border-t border-border mt-10"
+            >
               {stats.map((stat, idx) => (
                 <div key={idx}>
-                  <h3 className="text-3xl font-extrabold text-foreground" style={{ fontFamily: "var(--font-display)" }}>{stat.value}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
+                  <h3
+                    className="text-3xl font-extrabold text-foreground"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {stat.value}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </motion.div>
@@ -142,10 +168,28 @@ export default function Hero() {
                   >
                     {(() => {
                       const Icon = orbitItems[hoveredIcon].icon;
-                      return <Icon className="w-8 h-8 text-primary-foreground mb-2 drop-shadow-[0_0_8px_var(--color-primary)]" />;
+                      return (
+                        <Icon className="w-8 h-8 text-primary-foreground mb-2 drop-shadow-[0_0_8px_var(--color-primary)]" />
+                      );
                     })()}
-                    <span className="text-sm font-bold text-foreground mb-1">{orbitItems[hoveredIcon].title}</span>
-                    <span className="text-xs text-muted-foreground leading-tight">{orbitItems[hoveredIcon].desc}</span>
+                    <span
+                      className={`text-sm font-semibold leading-tight ${
+                        localStorage.getItem("theme") === "dark"
+                          ? "text-foreground"
+                          : "text-white"
+                      }`}
+                    >
+                      {orbitItems[hoveredIcon].title}
+                    </span>
+                    <span
+                      className={`text-xs leading-tight ${
+                        localStorage.getItem("theme") === "dark"
+                          ? "text-muted-foreground"
+                          : "text-white"
+                      }`}
+                    >
+                      {orbitItems[hoveredIcon].desc}
+                    </span>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -156,9 +200,12 @@ export default function Hero() {
                     transition={{ duration: 0.5, type: "spring" }}
                     className="relative z-10 flex flex-col items-center justify-center text-center"
                   >
-                    <span className={`text-sm font-extrabold tracking-widest uppercase  duration-500 text-primary-foreground`}>
-                      {ambiguityState 
-                      ? "Scalable Products" : "High-Quality Solutions"}
+                    <span
+                      className={`text-sm font-extrabold tracking-widest uppercase  duration-500 text-primary-foreground`}
+                    >
+                      {ambiguityState
+                        ? "Scalable Products"
+                        : "High-Quality Solutions"}
                     </span>
                   </motion.div>
                 )}
@@ -169,7 +216,7 @@ export default function Hero() {
             <div className="absolute inset-0 flex items-center justify-center animate-[spin_40s_linear_infinite]">
               {orbitItems.map((item, i) => {
                 const totalItems = orbitItems.length;
-                const angle = (i * (360 / totalItems)) * (Math.PI / 180);
+                const angle = i * (360 / totalItems) * (Math.PI / 180);
                 const radius = 170; // Slightly larger radius for w-20 nodes
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
@@ -194,10 +241,19 @@ export default function Hero() {
                       className="relative w-20 h-20 rounded-full bg-background border-4 border-border flex items-center justify-center shadow-2xl group-hover:border-primary transition-colors duration-300 cursor-pointer group"
                     >
                       {/* Hover ring effect */}
-                      <div className="absolute -inset-3 border border-primary/0 rounded-full group-hover:border-primary/50 group-hover:animate-[spin_3s_linear_infinite] transition-all pointer-events-none" style={{ borderTopColor: 'transparent' }} />
+                      <div
+                        className="absolute -inset-3 border border-primary/0 rounded-full group-hover:border-primary/50 group-hover:animate-[spin_3s_linear_infinite] transition-all pointer-events-none"
+                        style={{ borderTopColor: "transparent" }}
+                      />
 
                       <div className="animate-[spin_40s_linear_infinite_reverse] w-full h-full flex items-center justify-center">
-                        <item.icon className="w-8 h-8 text-primary-foreground group-hover:text-primary transition-colors" />
+                        <item.icon
+                          className={`w-8 h-8 transition-colors ${
+                            document.documentElement.classList.contains("dark")
+                              ? "text-foreground"
+                              : "text-primary"
+                          }`}
+                        />
                       </div>
                     </motion.div>
                   </div>
