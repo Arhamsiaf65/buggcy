@@ -117,18 +117,18 @@ export default function Hero() {
             className="hidden md:flex justify-center items-center relative min-h-[500px]"
           >
             {/* Animated dashed orbital rings for aesthetic */}
-            <div className="absolute w-[320px] h-[320px] border border-dashed border-border/40 rounded-full animate-[spin_40s_linear_infinite] pointer-events-none" />
-            <div className="absolute w-[450px] h-[450px] border border-dashed border-border/20 rounded-full animate-[spin_50s_linear_infinite_reverse] pointer-events-none" />
+            {/* <div className="absolute w-[320px] h-[320px] border border-dashed border-border/40 rounded-full animate-[spin_40s_linear_infinite] pointer-events-none" />
+            <div className="absolute w-[450px] h-[450px] border border-dashed border-border/20 rounded-full animate-[spin_50s_linear_infinite_reverse] pointer-events-none" /> */}
 
             {/* Central Glowing Orb */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 100 }}
-              className="absolute z-20 w-40 h-40 rounded-full border border-primary/30 bg-surface/80 flex flex-col items-center justify-center shadow-[0_0_60px_rgba(1,133,177,0.15)] backdrop-blur-xl overflow-hidden"
+              className="absolute z-20 w-40 h-40 rounded-full border border-primary bg-surface/80 flex flex-col items-center justify-center shadow-[0_0_60px_rgba(1,133,177,0.15)] backdrop-blur-xl overflow-hidden"
             >
-              <div className="absolute inset-0 rounded-full border border-primary/10 animate-[ping_4s_linear_infinite]" />
-              <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl" />
+              <div className="absolute inset-0 rounded-full border border-primary animate-[ping_4s_linear_infinite]" />
+              <div className="absolute inset-0 rounded-full bg-primary blur-2xl" />
 
               <AnimatePresence mode="wait">
                 {hoveredIcon !== null ? (
@@ -142,7 +142,7 @@ export default function Hero() {
                   >
                     {(() => {
                       const Icon = orbitItems[hoveredIcon].icon;
-                      return <Icon className="w-8 h-8 text-primary mb-2 drop-shadow-[0_0_8px_var(--color-primary)]" />;
+                      return <Icon className="w-8 h-8 text-primary-foreground mb-2 drop-shadow-[0_0_8px_var(--color-primary)]" />;
                     })()}
                     <span className="text-sm font-bold text-foreground mb-1">{orbitItems[hoveredIcon].title}</span>
                     <span className="text-xs text-muted-foreground leading-tight">{orbitItems[hoveredIcon].desc}</span>
@@ -156,8 +156,9 @@ export default function Hero() {
                     transition={{ duration: 0.5, type: "spring" }}
                     className="relative z-10 flex flex-col items-center justify-center text-center"
                   >
-                    <span className={`text-sm font-extrabold tracking-widest uppercase transition-colors duration-500 ${!ambiguityState ? "text-primary drop-shadow-[0_0_10px_var(--color-primary)]" : "text-muted-foreground/50"}`}>
-                      {ambiguityState ? "Scalable Products" : "High-Quality Solutions"}
+                    <span className={`text-sm font-extrabold tracking-widest uppercase  duration-500 text-primary-foreground`}>
+                      {ambiguityState 
+                      ? "Scalable Products" : "High-Quality Solutions"}
                     </span>
                   </motion.div>
                 )}
@@ -196,7 +197,7 @@ export default function Hero() {
                       <div className="absolute -inset-3 border border-primary/0 rounded-full group-hover:border-primary/50 group-hover:animate-[spin_3s_linear_infinite] transition-all pointer-events-none" style={{ borderTopColor: 'transparent' }} />
 
                       <div className="animate-[spin_40s_linear_infinite_reverse] w-full h-full flex items-center justify-center">
-                        <item.icon className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <item.icon className="w-8 h-8 text-primary-foreground group-hover:text-primary transition-colors" />
                       </div>
                     </motion.div>
                   </div>
