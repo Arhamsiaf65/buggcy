@@ -1,47 +1,63 @@
-import logo from "../../assets/logo.png";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
+import logo from "../../assets/logo.png";
+import b_logo from "../../assets/black-logo.png";
 
 const links = {
-  Services: ["Web Development", "Mobile Apps", "DevOps & Cloud", "E-commerce", "Fintech", "EdTech"],
-  Industries: ["Retail", "Travel & Tourism", "Food & Grocery", "Finance", "Education", "On-Demand"],
-  Company: ["About Us", "Portfolio", "Careers", "Blog", "Contact"],
+  Services: ["Web Development", "Mobile Apps", "DevOps & Cloud"],
+  Industries: ["Retail", "Travel & Tourism", "Finance"],
+  Company: ["About Us", "Careers", "Contact"],
 };
 
-const socials = ["LinkedIn", "Twitter", "Instagram", "GitHub"];
+const socials = ["LinkedIn", "Twitter", "GitHub"];
 
 export default function Footer() {
-  return (
-    <footer className="bg-background text-foreground border-t border-border">
-      <div className="section-container py-16 space-y-12">
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme") === "dark",
+  );
 
+  useEffect(() => {
+    const syncTheme = () => {
+      setDarkMode(localStorage.getItem("theme") === "dark");
+    };
+
+    window.addEventListener("theme-change", syncTheme);
+    window.addEventListener("storage", syncTheme);
+
+    return () => {
+      window.removeEventListener("theme-change", syncTheme);
+      window.removeEventListener("storage", syncTheme);
+    };
+  }, []);
+
+  return (
+    <footer className="border-t border-border bg-background">
+      <div className="section-container py-16">
         <div className="grid md:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2">
-             <img className="h-10" src={logo} alt="" />
-            </div>
-            <p className="text-muted-foreground leading-relaxed max-w-sm text-sm">
-              Turning your digital ideas into scalable products. We build software systems
-              designed for performance, growth, and long-term stability.
+            <img src={darkMode ? logo : b_logo} className="h-10" alt="logo" />
+
+            <p className="text-sm text-muted-foreground">
+              Building scalable software products.
             </p>
-            <a href="mailto:contact@buggcy.com"
-              className="inline-flex text-sm font-medium gradient-text hover:opacity-80 transition">
+
+            <Link to="/contact" className="text-sm gradient-text">
               contact@buggcy.com
-            </a>
+            </Link>
           </div>
 
-          {/* Link groups */}
+          {/* Links */}
           {Object.entries(links).map(([group, items]) => (
-            <div key={group} className="space-y-4">
-              <h4 className="text-sm font-semibold text-foreground" style={{ fontFamily: "var(--font-display)" }}>
-                {group}
-              </h4>
-              <ul className="space-y-2.5">
+            <div key={group}>
+              <h4 className="text-sm font-semibold">{group}</h4>
+              <ul className="mt-3 space-y-2">
                 {items.map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200">
+                    <Link to="/" className="text-sm text-muted-foreground">
                       {item}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -49,17 +65,15 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-border" />
+        <div className="border-t border-border my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Buggcy. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2">
-            {socials.map((social) => (
-              <a key={social} href="#"
-                className="text-xs px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200">
-                {social}
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()}</p>
+
+          <div className="flex gap-2">
+            {socials.map((s) => (
+              <a key={s} href="#">
+                {s}
               </a>
             ))}
           </div>

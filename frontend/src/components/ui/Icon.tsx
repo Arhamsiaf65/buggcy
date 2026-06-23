@@ -1,5 +1,6 @@
 
 import {  Mail, Globe, Zap, Check } from "lucide-react";
+
 import type { LucideProps } from "lucide-react";
 export const MailIcon = (props: LucideProps) => <Mail {...props} />;
 export const GlobeIcon = (props: LucideProps) => <Globe {...props} />;
