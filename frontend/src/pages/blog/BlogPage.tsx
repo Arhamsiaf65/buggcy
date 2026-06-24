@@ -1,4 +1,21 @@
+import { Link } from "react-router-dom";
+import { useBlogsQuery } from "../../services/queries";
+
 export default function BlogPage() {
+  const { data: blogs, isLoading, isError } = useBlogsQuery();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (isError || !blogs) {
+    return <div className="section-pad text-center text-destructive">Failed to load blogs.</div>;
+  }
+
   return (
     <section className="section-pad">
       <div className="section-container">
@@ -9,14 +26,25 @@ export default function BlogPage() {
         </p>
 
         <div className="mt-8 grid md:grid-cols-2 gap-6">
-          <div className="card-base p-6">
-            <h3 className="text-lg font-semibold">Building scalable web apps</h3>
-            <p className="text-sm text-muted-foreground mt-2">Patterns and practices for robust systems.</p>
-          </div>
-          <div className="card-base p-6">
-            <h3 className="text-lg font-semibold">Designing for conversion</h3>
-            <p className="text-sm text-muted-foreground mt-2">Design techniques that improve engagement.</p>
-          </div>
+          {blogs.map((blog) => (
+            <Link 
+              key={blog.id} 
+              to={`/blog/${blog.id}`}
+              className="card-base p-6 hover:border-primary/50 transition-all group block cursor-pointer"
+            >
+              {blog.imageUrl && (
+                <div className="w-full h-40 rounded-xl overflow-hidden mb-4">
+                  <img src={blog.imageUrl} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+              )}
+              <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">{blog.title}</h3>
+              <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{blog.content}</p>
+              <div className="mt-4 flex items-center text-xs text-muted-foreground gap-4">
+                <span>{blog.author}</span>
+                <span>{new Date(blog.date).toLocaleDateString()}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

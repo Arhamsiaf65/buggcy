@@ -7,6 +7,9 @@ import BlogPage from "./pages/blog/BlogPage";
 import CareersPage from "./pages/CareersPage";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import BlogDetailPage from "./pages/blog/BlogDetailPage";
+import CareerDetailPage from "./pages/CareersDetailPage";
+import ServiceDetailPage from "./pages/ServicesDetailPage";
 
 export default function App() {
   return (
@@ -17,9 +20,12 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/:id" element={<ServiceDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
           <Route path="/careers" element={<CareersPage />} />
+          <Route path="/careers/:id" element={<CareerDetailPage />} />
         </Routes>
       </main>
       <Footer />

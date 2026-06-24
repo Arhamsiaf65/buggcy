@@ -3,6 +3,7 @@ import { MailIcon, GlobeIcon, ZapIcon, CheckIcon } from "../../../components/ui/
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useContactMutation } from "../../../services/queries";
 
 const contactSchema = z.object({
   name: z.string().min(2).max(50),
@@ -30,14 +31,20 @@ const infoItems = [
 export default function Contact() {
   const [sent, setSent] = useState(false);
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ContactFormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: "", email: "", service: "", message: "" },
   });
 
-  async function onSubmit(_: ContactFormData) {
-    await new Promise((r) => setTimeout(r, 900));
-    setSent(true);
+  const { mutateAsync, isPending } = useContactMutation();
+
+  async function onSubmit(data: ContactFormData) {
+    try {
+      await mutateAsync(data);
+      setSent(true);
+    } catch (error) {
+      console.error("Failed to send message", error);
+    }
   }
 
   return (
@@ -134,9 +141,9 @@ export default function Contact() {
                   <FieldError message={errors.message?.message} />
                 </div>
 
-                <button type="submit" disabled={isSubmitting}
+                <button type="submit" disabled={isPending}
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 rounded-xl transition-all duration-300 disabled:opacity-60 active:scale-[0.98] shadow-[0_0_20px_var(--color-primary)]">
-                  {isSubmitting ? "Sending..." : "Send Message →"}
+                  {isPending ? "Sending..." : "Send Message →"}
                 </button>
               </form>
             )}
